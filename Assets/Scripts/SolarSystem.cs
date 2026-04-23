@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class SolarSystem : MonoBehaviour
 {
-    //real value of gravitational constant is 6.67408 × 10-11
+    //real value of gravitational constant is 6.67430 × 10^-11 
+    //but it makes movement too slow to showcase my simulation
+
     readonly float G = 1000f;
+    //readonly float G = MathLib.ToSingle(MathLib.GravitationalConstant);
+
     GameObject[] celestials;
 
     [SerializeField] bool IsElipticalOrbit = false;
@@ -28,10 +32,8 @@ public class SolarSystem : MonoBehaviour
                 if(!a.Equals(b))
                 {
                     float m2 = b.GetComponent<Rigidbody>().mass;
-                    float r = Vector3.Distance(a.transform.position, b.transform.position);
-
+                    float r = MathLib.Distance(a.transform.position, b.transform.position);
                     a.transform.LookAt(b.transform);
-
                     if (IsElipticalOrbit)
                     {
                         a.GetComponent<Rigidbody>().linearVelocity += a.transform.right * Mathf.Sqrt((G * m2) * ((2 / r) - (1 / (r * 1.5f))));
@@ -53,11 +55,14 @@ public class SolarSystem : MonoBehaviour
             {
                 if (!a.Equals(b))
                 {
-                    float m1 = a.GetComponent<Rigidbody>().mass;
-                    float m2 = b.GetComponent<Rigidbody>().mass;
-                    float r = Vector3.Distance(a.transform.position, b.transform.position);
-
-                    a.GetComponent<Rigidbody>().AddForce((b.transform.position - a.transform.position).normalized * (G * (m1 * m2) / (r * r)));
+                    if (a != null && b != null)
+                    {
+                        float m1 = a.GetComponent<Rigidbody>().mass;
+                        float m2 = b.GetComponent<Rigidbody>().mass;
+                        float r = MathLib.Distance(a.transform.position, b.transform.position);
+                        
+                        a.GetComponent<Rigidbody>().AddForce(MathLib.Normalize(b.transform.position - a.transform.position) * (G * (m1 * m2) / (r * r)));
+                    }
                 }
             }
         }
