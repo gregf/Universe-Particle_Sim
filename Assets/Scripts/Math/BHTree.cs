@@ -7,7 +7,9 @@ namespace BHTree
     public class BarnesHutTree
     {
 
-        public double Theta = 3.0;               // threshold value for Barnes-Hut approximation
+        public double Theta = 50;              // threshold value for Barnes-Hut approximation higher 
+                                                // Theta means more approximation and faster running time, but less accuracy
+
 
         private Body body;                       // body or aggregate body stored in this node
         private Octant octant;                   // square region that the tree represents
@@ -139,12 +141,12 @@ namespace BHTree
                 // distance between Body b and this node's center-of-mass
                 double d = body.DistanceTo(b);
 
-            
                 if ((s / d) < Theta) // compare ratio (s / d) to threshold value Theta
                 {
-                    Debug.Log("s: " + s + " d: " + d + "s/d: " + (s / d));
                     b.AddForce(body); // b is far away
                 }
+
+                
 
                 // recurse on each of current node's children
                 else 

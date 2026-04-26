@@ -27,7 +27,7 @@ public class SolarSystemWithBHTree : MonoBehaviour
             bodies.Add(new Body(pos.x, pos.y, pos.z, rb.mass, G));
         }
 
-        SetInitialVelocity();
+        //SetInitialVelocity();
     }
     void FixedUpdate()
     {
@@ -130,10 +130,10 @@ public class SolarSystemWithBHTree : MonoBehaviour
             }
         }
 
-        float cx = (minX + maxX) / 2f;
-        float cy = (minY + maxY) / 2f;
-        float cz = (minZ + maxZ) / 2f;
-        float len = MathLib.Max(maxX - minX, MathLib.Max(maxY - minY, maxZ - minZ)) * 1.5f;
+        double cx = (minX + maxX) / 2f;
+        double cy = (minY + maxY) / 2f;
+        double cz = (minZ + maxZ) / 2f;
+        double len = MathLib.Max(maxX - minX, MathLib.Max(maxY - minY, maxZ - minZ)) * 1.5f;
 
         return new Octant(cx, cy, cz, len);
     } 

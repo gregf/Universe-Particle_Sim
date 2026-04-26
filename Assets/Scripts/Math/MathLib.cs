@@ -9,6 +9,10 @@ public static class MathLib
     {
         return (float)value;
     }
+    public static double ToDouble(float value)
+    {
+        return (double)value;
+    }
     public static float Max(float a, float b)
     {
         if ((a > b))
